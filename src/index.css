@@ -6,16 +6,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } 
-.card-item{
+.cart-item{
   display: inline-flex;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 20px 10px;
 }
-.card-item ,right-block{
+.right-block{
+  border: 2px solid rgb(73, 70, 70);
+  padding: 15px;
+}
+.cart-item ,right-block{
   padding: 0 20px;
 }
-.card-item-actions{
-  margin: 0 20px;
+.cart-item-actions{
+  margin-top:20px;
 }
 .action-icons{
   height: 25px;
