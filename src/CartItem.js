@@ -6,7 +6,7 @@ class CartItem extends React.Component {
         super();
         this.state = {
             price: 99,
-            title: 'GUU',
+            title: 'Mobile',
             qty: 1,
             img: ''
         }
