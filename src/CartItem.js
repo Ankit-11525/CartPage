@@ -11,8 +11,12 @@ class CartItem extends React.Component {
             img: ''
         }
     }
+    increaseQuantity=()=>
+    {
+        console.log("this.state", this.state);
+    }
     render() {
-        const {price,title,qty}=this.state; // object destructuring
+        const { price, title, qty } = this.state; // object destructuring
         // addEventListener
         return (
             <div className='cart-item'>
@@ -26,7 +30,12 @@ class CartItem extends React.Component {
                     <div style={{ fontSize: 20, color: '#555' }}>  Rs {price}</div>
                     <div style={{ fontSize: 18, color: '#555' }}>  Qty: {qty}</div>
                     <div className='cart-item-actions'>
-                        <img alt='Increase' className='action-icons' id='Increase' src="https://cdn-icons-png.flaticon.com/512/992/992651.png" />
+                        <img 
+                        alt='Increase' 
+                        className='action-icons' 
+                        src="https://cdn-icons-png.flaticon.com/512/992/992651.png" 
+                        onClick={this.increaseQuantity}
+                        />
                         <img alt='Decrease' className='action-icons' src="https://cdn-icons-png.flaticon.com/512/66/66889.png" />
                         <img alt='Delete' className='action-icons' src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" />
                     </div>
