@@ -2,15 +2,15 @@ import React from 'react'
 // import index from './index.css'
 
 class CartItem extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            price: 99,
-            title: 'Mobile',
-            qty: 1,
-            img: ''
-        }
-    }
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         price: 99,
+    //         title: 'Mobile',
+    //         qty: 1,
+    //         img: ''
+    //     }
+    // }
     increaseQuantity=()=>
     {
         // console.log("this.state", this.state);
@@ -49,8 +49,8 @@ class CartItem extends React.Component {
         
     }
     render() {
-        const { price, title, qty } = this.state; // object destructuring
-        // addEventListener
+        const { price, title, qty } = this.props.product; // object destructuring
+        // console.log('this.props',this.props);
         return (
             <div className='cart-item'>
                 <div className='left-block'>
