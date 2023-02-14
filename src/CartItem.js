@@ -1,7 +1,7 @@
 import React from 'react'
 // import index from './index.css'
 
-// no this keyword in function based component only props
+// no this keyword in function based component only
 const CartItem = (props) =>{
     // constructor() {
     //     super();
