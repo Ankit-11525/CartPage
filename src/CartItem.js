@@ -1,7 +1,8 @@
 import React from 'react'
 // import index from './index.css'
 
-class CartItem extends React.Component {
+// no this keyword in function based component only props
+const CartItem = (props) =>{
     // constructor() {
     //     super();
     //     this.state = {
@@ -48,8 +49,8 @@ class CartItem extends React.Component {
         // }
         
     // }
-    render() {
-        const { price, title, qty } = this.props.product; // object destructuring
+    // render() {
+        const { price, title, qty } = props.product; // object destructuring
         // console.log('this.props',this.props);
         return (
             <div className='cart-item'>
@@ -67,25 +68,25 @@ class CartItem extends React.Component {
                         alt='Increase' 
                         className='action-icons' 
                         src="https://cdn-icons-png.flaticon.com/512/992/992651.png" 
-                        onClick={()=>{this.props.OnIncreaseQuantity(this.props.product)}}
+                        onClick={()=>{props.OnIncreaseQuantity(props.product)}}
                         />
                         <img 
                         alt='Decrease' 
                         className='action-icons' 
                         src="https://cdn-icons-png.flaticon.com/512/66/66889.png" 
-                        onClick={()=>{this.props.OnDecreaseQuantity(this.props.product)}}
+                        onClick={()=>{props.OnDecreaseQuantity(props.product)}}
                         />
                         <img 
                         alt='Delete' 
                         className='action-icons' 
                         src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" 
-                        onClick={()=>{this.props.OneDeleteItem(this.props.product)}}
+                        onClick={()=>{props.OneDeleteItem(props.product)}}
                         />
                     </div>
                 </div>
             </div>
         );
-    }
+    // }
 }
 const styles = {
     image: {
