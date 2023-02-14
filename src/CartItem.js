@@ -50,12 +50,12 @@ const CartItem = (props) =>{
         
     // }
     // render() {
-        const { price, title, qty } = props.product; // object destructuring
+        const { price, title, qty ,img} = props.product; // object destructuring
         // console.log('this.props',this.props);
         return (
             <div className='cart-item'>
                 <div className='left-block'>
-                    <img style={styles.image} />
+                    <img style={styles.image} src={img}/>
                 </div>
                 <div className='right-block'>
 
