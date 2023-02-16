@@ -8,25 +8,25 @@ class App extends React.Component {
     this.state = {
       products: [
         {
-          price: 9999,
+          price: 1,
           title: 'Mobile',
           qty: 1,
           id: 1,
           img: 'https://img5.gadgetsnow.com/gd/images/products/additional/large/G390874_View_1/mobiles/smartphones/apple-iphone-14-pro-max-1-tb-deep-purple-6-gb-ram-.jpg',
         },
         {
-          price: 99,
+          price: 1,
           title: 'Watch',
           qty: 1,
           id: 2,
           img: 'https://cdn.shopify.com/s/files/1/0057/8938/4802/products/a09a67f0-75bd-42b8-8f0d-58ffad51e03b_600x.png?v=1625045372',
         },
         {
-          price: 99999,
+          price: 1,
           title: 'Laptop',
           qty: 1,
           id: 3,
-          img: 'https://lh3.googleusercontent.com/spp/AHlUXW2ILc2NqvCKChWwx_ZoLEHmCnt24lNa-XvWSs4R0U8UJW0zOmq0LTL6QLf_-pNMUq1J5pmOtHdUJ_wlbfX32Mw3EKoxqydtfub3yrbVnI--x1CZO67Bs7pTFrWtBq19epdCEXLb7dTrkLHrACyUqHHP9-_QBVGhISchdy8DZNjI1dMU8cZWD6uTbQBtzwFGqqT0Zdcp=s512-rw-pd-pc0x00ffffff',
+          img: 'https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&w=1000&q=80',
         }
       ]
     }
