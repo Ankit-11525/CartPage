@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
-import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
+import { addDoc,getFirestore, doc, onSnapshot, collection } from "firebase/firestore";
 /// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,9 +31,32 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    const db = getFirestore(); const colRef = collection(db, 'products');
-    const docsSnap = getDocs(colRef);
-    docsSnap.then((ankit) => {
+    // const db = getFirestore(); 
+    // const colRef = collection(db, 'products');
+    // const docsSnap = getDocs(colRef);
+    // docsSnap.then((ankit) => {
+
+    //   // console.log(ankit);
+    //   const products = ankit.docs.map((doc) => {
+    //     const data = doc.data();
+    //     // to provide key
+    //     data['id'] = doc.id;
+    //     return data;
+    //   })
+    //   // console.log(products);
+    //   this.setState({
+    //     products,
+    //     loading: false
+    //   })
+    // })
+
+
+
+
+    // realtime update .............
+    const db = getFirestore();
+    const colRef = collection(db, 'products');
+    onSnapshot(colRef, (ankit) => {
 
       // console.log(ankit);
       const products = ankit.docs.map((doc) => {
@@ -80,6 +103,21 @@ class App extends React.Component {
     })
     return count;
   }
+  addproduct = () => {
+    const db = getFirestore();
+      const colref=collection(db, 'products');
+        addDoc(colref,{
+          img: '',
+          price: 99,
+          qty: 3,
+          title: 'washing machine'
+        })
+        console.log('product has been added');
+        // .then((docref)=>{
+        //   console.log('product has been added');
+        // })
+
+  }
   getCartTotal = () => {
     const { products } = this.state;
     let totalprice = 0;
@@ -93,6 +131,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
+        <button onClick={this.addproduct} style={{padding:20,fontSize:25,cursor:'pointer'}}>Add Product</button>
         <Cart
           products={products}
           OnIncreaseQuantity={this.handleIncreaseQuantity}
