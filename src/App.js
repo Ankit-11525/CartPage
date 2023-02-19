@@ -1,36 +1,55 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import { getFirestore, doc, getDocs, collection } from "firebase/firestore";
+/// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBUvUO8r7bKr1cXY8TIFmXzZIpFZd1opdo",
+  authDomain: "cart-ede06.firebaseapp.com",
+  projectId: "cart-ede06",
+  storageBucket: "cart-ede06.appspot.com",
+  messagingSenderId: "190337897842",
+  appId: "1:190337897842:web:31a0a74c264a33e77639eb"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: [
-        {
-          price: 1,
-          title: 'Mobile',
-          qty: 1,
-          id: 1,
-          img: 'https://img5.gadgetsnow.com/gd/images/products/additional/large/G390874_View_1/mobiles/smartphones/apple-iphone-14-pro-max-1-tb-deep-purple-6-gb-ram-.jpg',
-        },
-        {
-          price: 1,
-          title: 'Watch',
-          qty: 1,
-          id: 2,
-          img: 'https://cdn.shopify.com/s/files/1/0057/8938/4802/products/a09a67f0-75bd-42b8-8f0d-58ffad51e03b_600x.png?v=1625045372',
-        },
-        {
-          price: 1,
-          title: 'Laptop',
-          qty: 1,
-          id: 3,
-          img: 'https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&w=1000&q=80',
-        }
-      ]
+      products: [],
+      loading: true
     }
   }
+  componentDidMount() {
+    const db = getFirestore(); const colRef = collection(db, 'products');
+    const docsSnap = getDocs(colRef);
+    docsSnap.then((ankit) => {
+
+      // console.log(ankit);
+      const products = ankit.docs.map((doc) => {
+        const data = doc.data();
+        // to provide key
+        data['id'] = doc.id;
+        return data;
+      })
+      // console.log(products);
+      this.setState({
+        products,
+        loading: false
+      })
+    })
+  }
+
   handleIncreaseQuantity = (product) => {
     // console.log("increase the no. of quantity of ",product);
     const { products } = this.state;
@@ -61,16 +80,16 @@ class App extends React.Component {
     })
     return count;
   }
-  getCartTotal=()=>{
+  getCartTotal = () => {
     const { products } = this.state;
     let totalprice = 0;
     products.map((product) => {
-      totalprice += product.price*product.qty;
+      totalprice += product.price * product.qty;
     })
     return totalprice;
   }
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
@@ -80,7 +99,8 @@ class App extends React.Component {
           OnDecreaseQuantity={this.handleDecreaseQuantity}
           OneDeleteItem={this.handleDeleteItem}
         />
-        <div style={{padding:10,marginLeft:400,fontSize:20}}>
+        {loading && <h1> The Page is Loading....</h1>}
+        <div style={{ padding: 10, marginLeft: 400, fontSize: 20 }}>
           TOTAL : {this.getCartTotal()}
         </div>
       </div>
