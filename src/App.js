@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
-import { updateDoc,addDoc,getFirestore, doc, onSnapshot, collection } from "firebase/firestore";
+import { updateDoc,deleteDoc, addDoc, getFirestore, doc, onSnapshot, collection, Firestore } from "firebase/firestore";
 /// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -65,6 +65,7 @@ class App extends React.Component {
         data['id'] = doc.id;
         return data;
       })
+      // products array mangwakar this state mein daal diya
       // console.log(products);
       this.setState({
         products,
@@ -83,36 +84,36 @@ class App extends React.Component {
     // console.log(product.id)
     const docRef = doc(db, 'products', product.id);
     console.log(docRef);
-    updateDoc(docRef,{
-      qty:products[index].qty+1
-    } )
-    .then(()=>{
-      console.log("Entire Document has been updated successfully");
+    updateDoc(docRef, {
+      qty: products[index].qty + 1
     })
-    .catch(error => {
-      console.log(error);
-  })
+      .then(() => {
+        console.log("Entire Document has been updated successfully");
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
   handleDecreaseQuantity = (product) => {
     // console.log("decrease the no. of quantity of ",product);
     const { products } = this.state;
     const index = products.indexOf(product);
-    if (products[index].qty >= 1) { 
+    if (products[index].qty >= 1) {
       // products[index].qty -= 1 
       const db = getFirestore();
-    // this.setState({ products: products });
-    // console.log(product.id)
-    const docRef = doc(db, 'products', product.id);
-    console.log(docRef);
-    updateDoc(docRef,{
-      qty:products[index].qty-1
-    } )
-    .then(()=>{
-      console.log("Entire Document has been updated successfully");
-    })
-    .catch(error => {
-      console.log(error);
-  })
+      // this.setState({ products: products });
+      // console.log(product.id)
+      const docRef = doc(db, 'products', product.id);
+      console.log(docRef);
+      updateDoc(docRef, {
+        qty: products[index].qty - 1
+      })
+        .then(() => {
+          console.log("Entire Document has been updated successfully");
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
 
     // this.setState({ products: products });
@@ -120,9 +121,19 @@ class App extends React.Component {
   handleDeleteItem = (product) => {
     // console.log("this gonna be print");
     const { products } = this.state;
-    const index = products.indexOf(product);
-    products.splice(index, 1);
-    this.setState({ products: products });
+    // const index = products.indexOf(product);
+    // products.splice(index, 1);
+    // this.setState({ products: products });
+    const db = getFirestore();
+    const docRef = doc(db, 'products', product.id);
+    deleteDoc(docRef)
+      .then(() => {
+        console.log("Entire Document has been deleted successfully.")
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
   }
   getCartCount = () => {
     const { products } = this.state;
@@ -134,17 +145,17 @@ class App extends React.Component {
   }
   addproduct = () => {
     const db = getFirestore();
-      const colref=collection(db, 'products');
-        addDoc(colref,{
-          img: '',
-          price: 99,
-          qty: 3,
-          title: 'washing machine'
-        })
-        console.log('product has been added');
-        // .then((docref)=>{
-        //   console.log('product has been added');
-        // })
+    const colref = collection(db, 'products');
+    addDoc(colref, {
+      img: '',
+      price: 99,
+      qty: 3,
+      title: 'washing machine'
+    })
+    console.log('product has been added');
+    // .then((docref)=>{
+    //   console.log('product has been added');
+    // })
 
   }
   getCartTotal = () => {
@@ -160,7 +171,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
-        <button onClick={this.addproduct} style={{padding:20,fontSize:25,cursor:'pointer'}}>Add Product</button>
+        <button onClick={this.addproduct} style={{ padding: 20, fontSize: 25, cursor: 'pointer' }}>Add Product</button>
         <Cart
           products={products}
           OnIncreaseQuantity={this.handleIncreaseQuantity}
