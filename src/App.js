@@ -120,7 +120,7 @@ class App extends React.Component {
   }
   handleDeleteItem = (product) => {
     // console.log("this gonna be print");
-    const { products } = this.state;
+    // const { products } = this.state;
     // const index = products.indexOf(product);
     // products.splice(index, 1);
     // this.setState({ products: products });
