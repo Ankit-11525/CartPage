@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
-import { addDoc,getFirestore, doc, onSnapshot, collection } from "firebase/firestore";
+import { updateDoc,addDoc,getFirestore, doc, onSnapshot, collection } from "firebase/firestore";
 /// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -77,16 +77,45 @@ class App extends React.Component {
     // console.log("increase the no. of quantity of ",product);
     const { products } = this.state;
     const index = products.indexOf(product);
-    products[index].qty += 1
-    this.setState({ products: products });
+    // products[index].qty += 1
+    const db = getFirestore();
+    // this.setState({ products: products });
+    // console.log(product.id)
+    const docRef = doc(db, 'products', product.id);
+    console.log(docRef);
+    updateDoc(docRef,{
+      qty:products[index].qty+1
+    } )
+    .then(()=>{
+      console.log("Entire Document has been updated successfully");
+    })
+    .catch(error => {
+      console.log(error);
+  })
   }
   handleDecreaseQuantity = (product) => {
     // console.log("decrease the no. of quantity of ",product);
     const { products } = this.state;
     const index = products.indexOf(product);
-    if (products[index].qty >= 1) { products[index].qty -= 1 }
+    if (products[index].qty >= 1) { 
+      // products[index].qty -= 1 
+      const db = getFirestore();
+    // this.setState({ products: products });
+    // console.log(product.id)
+    const docRef = doc(db, 'products', product.id);
+    console.log(docRef);
+    updateDoc(docRef,{
+      qty:products[index].qty-1
+    } )
+    .then(()=>{
+      console.log("Entire Document has been updated successfully");
+    })
+    .catch(error => {
+      console.log(error);
+  })
+    }
 
-    this.setState({ products: products });
+    // this.setState({ products: products });
   }
   handleDeleteItem = (product) => {
     // console.log("this gonna be print");
